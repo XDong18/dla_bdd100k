@@ -342,7 +342,7 @@ def train_seg(args):
             transforms.ToTensor(),
             normalize,
         ]), binary=(args.classes == 2)),
-        batch_size=batch_size, shuffle=False, num_workers=num_workers,
+        batch_size=4, shuffle=False, num_workers=num_workers,
         pin_memory=True
     )
     optimizer = torch.optim.SGD(single_model.optim_parameters(),
