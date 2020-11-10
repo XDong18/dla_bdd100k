@@ -155,7 +155,7 @@ class SegListMS(torch.utils.data.Dataset):
 def validate(val_loader, model, criterion, eval_score=None, print_freq=10):
     # miou part >>>
     confusion_labels = np.arange(0, 19)
-    val_confusion_matrix = RunningConfusionMatrix(confusion_labels)
+    confusion_matrix = RunningConfusionMatrix(confusion_labels)
     # miou part <<<
 
     batch_time = AverageMeter()
