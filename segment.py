@@ -402,7 +402,7 @@ def train_seg(args):
             'best_prec1': best_prec1,
         }, is_best, filename=checkpoint_path)
         if (epoch + 1) % args.save_freq == 0:
-            history_path = 'checkpoint_{:03d}.pth.tar'.format(epoch + 1)
+            history_path = os.path.join(checkpoint_dir, 'checkpoint_{:03d}.pth.tar'.format(epoch + 1))
             shutil.copyfile(checkpoint_path, history_path)
 
 
