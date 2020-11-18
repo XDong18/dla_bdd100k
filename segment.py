@@ -436,7 +436,7 @@ def crop_image(image, size):
     upper = (image.size[1] - size[1]) // 2
     right = left + size[0]
     lower = upper + size[1]
-    print(left.item(), upper.item(), right.item(), lower.item())
+    # print(left.item(), upper.item(), right.item(), lower.item())
     return image.crop((left.item(), upper.item(), right.item(), lower.item()))
 
 
@@ -470,13 +470,15 @@ def save_prob_images(prob, filenames, output_dir, sizes=None):
         im.save(fn)
 
 
-def save_colorful_images(predictions, filenames, output_dir, palettes):
+def save_colorful_images(predictions, filenames, output_dir, palettes, sizes=None):
     """
     Saves a given (B x C x H x W) into an image file.
     If given a mini-batch tensor, will save the tensor as a grid of images.
     """
     for ind in range(len(filenames)):
         im = Image.fromarray(palettes[predictions[ind].squeeze()])
+        if sizes is not None:
+            im = crop_image(im, sizes[ind])
         fn = os.path.join(output_dir, filenames[ind][:-4] + '.png')
         out_dir = split(fn)[0]
         if not exists(out_dir):
@@ -505,7 +507,7 @@ def test(eval_data_loader, model, num_classes,
                 save_prob_images(prob, name, output_dir + '_prob', size)
             else:
                 save_colorful_images(pred, name, output_dir + '_color',
-                                     CITYSCAPE_PALLETE)
+                                     CITYSCAPE_PALLETE, size)
         if has_gt:
             label = label.numpy()
             hist += fast_hist(pred.flatten(), label.flatten(), num_classes)
