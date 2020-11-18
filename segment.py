@@ -436,8 +436,8 @@ def crop_image(image, size):
     upper = (image.size[1] - size[1]) // 2
     right = left + size[0]
     lower = upper + size[1]
-    print(type(image), type(left), type(right))
-    return image.crop((left, upper, right, lower))
+    # print(type(image), type(left), type(right))
+    return image.crop((left.item(), upper.item(), right.item(), lower.item()))
 
 
 def save_output_images(predictions, filenames, output_dir, sizes=None):
