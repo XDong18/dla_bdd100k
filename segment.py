@@ -436,6 +436,7 @@ def crop_image(image, size):
     upper = (image.size[1] - size[1]) // 2
     right = left + size[0]
     lower = upper + size[1]
+    print(type(image), type(left), type(right))
     return image.crop((left, upper, right, lower))
 
 
