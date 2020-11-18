@@ -337,7 +337,7 @@ class PadToSize(object):
     def __call__(self, image, label=None, *args):
         w, h = image.size
         s = self.side
-        print(w ,h ,s)
+        # print(w ,h ,s)
         assert s >= w and s >= h
         top, left = (s - h) // 2, (s - w) // 2
         bottom = s - h - top
