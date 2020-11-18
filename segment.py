@@ -600,6 +600,7 @@ def test_seg(args):
     batch_size = args.batch_size
     num_workers = args.workers
     phase = args.phase
+    base_out_dir = args.checkpoint_dir
 
     for k, v in args.__dict__.items():
         print(k, ':', v)
@@ -646,7 +647,7 @@ def test_seg(args):
         else:
             print("=> no checkpoint found at '{}'".format(args.resume))
 
-    out_dir = '{}_{:03d}_{}'.format(args.arch, start_epoch, phase)
+    out_dir = os.path.join(base_out_dir, '{}_{:03d}_{}'.format(args.arch, start_epoch, phase))
     if len(args.test_suffix) > 0:
         out_dir += '_' + args.test_suffix
 
