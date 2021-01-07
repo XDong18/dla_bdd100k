@@ -318,6 +318,7 @@ class DLA(nn.Module):
         #         '{} trained on {} does not exist.'.format(data.name, name))
         # self.load_state_dict(model_zoo.load_url(model_url))
         self.load_state_dict(torch.load('/shared/xudongliu/models/dla102_27a30eac.pth'))
+        print('new baseline model loaded!\n !!! \n !!! \n !!!')
         self.fc = fc
 
 
