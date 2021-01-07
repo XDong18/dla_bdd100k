@@ -311,12 +311,13 @@ class DLA(nn.Module):
             self.fc = nn.Conv2d(
                 self.channels[-1], data.classes,
                 kernel_size=1, stride=1, padding=0, bias=True)
-        try:
-            model_url = get_model_url(data, name)
-        except KeyError:
-            raise ValueError(
-                '{} trained on {} does not exist.'.format(data.name, name))
-        self.load_state_dict(model_zoo.load_url(model_url))
+        # try:
+        #     model_url = get_model_url(data, name)
+        # except KeyError:
+        #     raise ValueError(
+        #         '{} trained on {} does not exist.'.format(data.name, name))
+        # self.load_state_dict(model_zoo.load_url(model_url))
+        self.load_state_dict(torch.load('/shared/xudongliu/models/dla102_27a30eac.pth'))
         self.fc = fc
 
 
