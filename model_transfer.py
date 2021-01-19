@@ -13,7 +13,7 @@ new_state_dict = OrderedDict()
 
 for k, v in state_dict.items():
     if k[:6] == 'module':
-        new_k = [k[7:]]
+        new_k = k[7:]
     if 'base.fc' in new_k:
         continue
     prefix, module = new_k.split('.', 1)
