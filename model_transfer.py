@@ -12,9 +12,14 @@ state_dict = model['state_dict']
 new_state_dict = OrderedDict()
 
 for k, v in state_dict.items():
+    new_prefix = None
+
     if k[:6] == 'module':
         new_k = k[7:]
     if 'base.fc' in new_k:
+        continue
+    if new_k == 'up.weight':
+        new_state_dict['decode_head.up.weight'] = v
         continue
     prefix, module = new_k.split('.', 1)
     if prefix == 'base':
