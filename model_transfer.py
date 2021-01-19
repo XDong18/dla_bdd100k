@@ -1,7 +1,7 @@
 import torch
 from collections import OrderedDict
 
-origin_model_path = '/out/dla34_up_768x768_16_500e/model_best.pth.tar'
+origin_model_path = './out/dla34_up_768x768_16_500e/model_best.pth.tar'
 new_model_path = '/shared/xudongliu/code/f_server/mmsegmentation/out/dla_model/dla34_bs16_500e.pth'
 meta_path = '/shared/xudongliu/code/f_server/mmsegmentation/out/dla34up_80k_new_sbn/latest.pth'
 
