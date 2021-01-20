@@ -1,9 +1,9 @@
 import torch
 from collections import OrderedDict
 
-origin_model_path = './out/dla34_up_768x768_16_500e/model_best.pth.tar'
-new_model_path = '/shared/xudongliu/code/f_server/mmsegmentation/out/dla_model/dla34_bs16_500e.pth'
-meta_path = '/shared/xudongliu/code/f_server/mmsegmentation/out/dla34up_80k_new_sbn/latest.pth'
+origin_model_path = './out/dla102_up_768x768_bs8_500e_new_pretrained/model_best.pth.tar'
+new_model_path = '/shared/xudongliu/code/f_server/mmsegmentation/out/dla_model/dla102_bs8_500e_new_pretrained.pth'
+meta_path = '/shared/xudongliu/code/f_server/mmsegmentation/out/dla102up_80k_new_bs8/latest.pth'
 
 meta = torch.load(meta_path)['meta']
 model = torch.load(origin_model_path)
