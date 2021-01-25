@@ -3,6 +3,7 @@ import math
 import numpy as np
 import torch
 from torch import nn
+import torch.nn.functional as F
 
 import dla
 
@@ -171,6 +172,59 @@ class DLASeg(nn.Module):
         for param in self.fc.parameters():
             yield param
 
+class DLASeg_bilinear(nn.Module):
+    def __init__(self, base_name, classes,
+                 pretrained_base=None, down_ratio=2):
+        super(DLASeg_bilinear, self).__init__()
+        assert down_ratio in [2, 4, 8, 16]
+        self.first_level = int(np.log2(down_ratio))
+        self.base = dla.__dict__[base_name](pretrained=pretrained_base,
+                                            return_levels=True)
+        channels = self.base.channels
+        # scales = [2 ** i for i in range(len(channels[self.first_level:]))]
+        # self.bilinear_up = nn.
+        self.fc = nn.Sequential(
+            nn.Conv2d(channels[self.first_level], classes, kernel_size=1,
+                      stride=1, padding=0, bias=True)
+        )
+        up_factor = 2 ** self.first_level
+        if up_factor > 1:
+            up = nn.ConvTranspose2d(classes, classes, up_factor * 2,
+                                    stride=up_factor, padding=up_factor // 2,
+                                    output_padding=0, groups=classes,
+                                    bias=False)
+            fill_up_weights(up)
+            up.weight.requires_grad = False
+        else:
+            up = Identity()
+        self.up = up
+        self.softmax = nn.LogSoftmax(dim=1)
+        for m in self.fc.modules():
+            if isinstance(m, nn.Conv2d):
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))
+            elif isinstance(m, BatchNorm):
+                m.weight.data.fill_(1)
+                m.bias.data.zero_()
+
+    def forward(self, x):
+        x = self.base(x)
+        x = F.interpolate(x[-1], size=768/2, mode='bilinear', align_corners=True)
+        # x = self.dla_up(x[self.first_level:])
+        x = self.fc(x)
+        y = self.softmax(self.up(x))
+        return y, x
+
+    def optim_parameters(self, memo=None):
+        for param in self.base.parameters():
+            yield param
+        for param in self.fc.parameters():
+            yield param
+
+
+def dla34_bilinear(classes, pretrained_base=None, **kwargs):
+    model = DLASeg_bilinear('dla34', classes, pretrained_base=pretrained_base, **kwargs)
+    return model
 
 def dla34up(classes, pretrained_base=None, **kwargs):
     model = DLASeg('dla34', classes, pretrained_base=pretrained_base, **kwargs)
