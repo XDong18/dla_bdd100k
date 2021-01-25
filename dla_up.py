@@ -184,7 +184,7 @@ class DLASeg_bilinear(nn.Module):
         # scales = [2 ** i for i in range(len(channels[self.first_level:]))]
         # self.bilinear_up = nn.
         self.fc = nn.Sequential(
-            nn.Conv2d(channels[self.first_level], classes, kernel_size=1,
+            nn.Conv2d(channels[-1], classes, kernel_size=1,
                       stride=1, padding=0, bias=True)
         )
         up_factor = 2 ** self.first_level
