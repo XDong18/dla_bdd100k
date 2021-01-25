@@ -313,17 +313,17 @@ class DLA(nn.Module):
             self.fc = nn.Conv2d(
                 self.channels[-1], data.classes,
                 kernel_size=1, stride=1, padding=0, bias=True)
-        # try:
-        #     model_url = get_model_url(data, name)
-        # except KeyError:
-        #     raise ValueError(
-        #         '{} trained on {} does not exist.'.format(data.name, name))
-        # self.load_state_dict(model_zoo.load_url(model_url))
+        try:
+            model_url = get_model_url(data, name)
+        except KeyError:
+            raise ValueError(
+                '{} trained on {} does not exist.'.format(data.name, name))
+        self.load_state_dict(model_zoo.load_url(model_url))
         
         # self.load_state_dict(torch.load('/shared/xudongliu/models/dla102_27a30eac.pth'))
 
-        self.load_state_dict(torch.load('/shared/xudongliu/models/dla34-24a49e58.pth'))
-        print('new baseline model-34 loaded!\n !!! \n !!! \n !!!')
+        # self.load_state_dict(torch.load('/shared/xudongliu/models/dla34-24a49e58.pth'))
+        print('old baseline model-34 loaded!\n !!! \n !!! \n !!!')
         self.fc = fc
 
 
