@@ -209,7 +209,7 @@ class DLASeg_bilinear(nn.Module):
 
     def forward(self, x):
         x = self.base(x)
-        x = F.interpolate(x[-1], size=768/2, mode='bilinear', align_corners=True)
+        x = F.interpolate(x[-1], size=int(768/2), mode='bilinear', align_corners=True)
         # x = self.dla_up(x[self.first_level:])
         x = self.fc(x)
         y = self.softmax(self.up(x))
