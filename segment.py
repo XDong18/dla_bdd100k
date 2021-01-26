@@ -615,7 +615,7 @@ def test_seg(args):
 
     data_dir = args.data_dir
     info = dataset.load_dataset_info(data_dir)
-    normalize = transforms.Normalize(mean=info.mean, std=info.std)
+    normalize = transforms.Normalize(mean=info.mean, std=info.std) 
     # scales = [0.5, 0.75, 1.25, 1.5, 1.75]
     scales = [0.5, 0.75, 1.25, 1.5]
     t = []
@@ -663,9 +663,9 @@ def test_seg(args):
                       output_dir=out_dir,
                       scales=scales)
     else:
-        mAP = test(test_loader, model, args.classes, save_vis=True,
+        mAP = test(test_loader, model, args.classes, save_vis=False,  # TODO change save_vis to enable vis
                    has_gt=phase != 'test' or args.with_gt, output_dir=out_dir)
-    print('mAP: ', mAP)
+    print('mIoU: ', mAP)
 
 
 def parse_args():
@@ -724,7 +724,7 @@ def parse_args():
     parser.add_argument('--edge-weight', type=int, default=-1)
     parser.add_argument('--test-suffix', default='')
     parser.add_argument('--with-gt', action='store_true')
-    parser.add_argument('-o', '--checkpoint-dir') 
+    parser.add_argument('-o', '--checkpoint-dir', default='') 
     args = parser.parse_args()
     args.cuda = not args.no_cuda and torch.cuda.is_available()
 
