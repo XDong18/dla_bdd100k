@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES=1,3,5,7
+export CUDA_VISIBLE_DEVICES=2,3,4,5
 python3 segment.py test --phase val -d /shared/xudongliu/bdd100k/seg/seg -c 19 -s 1280 --arch dla34up \
     --batch-size 4 \
     --epochs 500 --bn-sync \
