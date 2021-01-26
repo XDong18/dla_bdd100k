@@ -336,12 +336,12 @@ class PadToSize(object):
 
     def __call__(self, image, label=None, *args):
         w, h = image.size
-        s = self.side
+        s_w, s_h = self.side # TODO s --> s_w, s_h
         # print(w ,h ,s)
         assert s >= w and s >= h
-        top, left = (s - h) // 2, (s - w) // 2
-        bottom = s - h - top
-        right = s - w - left
+        top, left = (s_h - h) // 2, (s_w - w) // 2 # TODO s --> s_w, s_h
+        bottom = s_h - h - top # TODO s --> s_w, s_h
+        right = s_w - w - left # TODO s --> s_w, s_h
         if label is not None:
             label = pad_image('constant', label, top, bottom, left, right,
                               value=255)
