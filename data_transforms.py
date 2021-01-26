@@ -328,7 +328,7 @@ class PadToSize(object):
     """Pads the given PIL.Image on all sides with the given "pad" value"""
 
     def __init__(self, side, fill=-1):
-        assert isinstance(side, numbers.Number)
+        assert isinstance(side, (numbers.Number, tuple))
         assert isinstance(fill, numbers.Number) or isinstance(fill, str) or \
             isinstance(fill, tuple)
         self.side = side
@@ -355,7 +355,7 @@ class PadToSize(object):
 
 class PadImage(object):
     def __init__(self, padding, fill=0):
-        assert isinstance(padding, (numbers.Number, tuple))
+        assert isinstance(padding, numbers.Number)
         assert isinstance(fill, numbers.Number) or isinstance(fill, str) or \
             isinstance(fill, tuple)
         self.padding = padding
