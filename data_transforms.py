@@ -355,7 +355,7 @@ class PadToSize(object):
 
 class PadImage(object):
     def __init__(self, padding, fill=0):
-        assert isinstance(padding, numbers.Number)
+        assert isinstance(padding, (numbers.Number, tuple))
         assert isinstance(fill, numbers.Number) or isinstance(fill, str) or \
             isinstance(fill, tuple)
         self.padding = padding
