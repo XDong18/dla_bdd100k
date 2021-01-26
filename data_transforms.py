@@ -338,7 +338,7 @@ class PadToSize(object):
         w, h = image.size
         s_w, s_h = self.side # TODO s --> s_w, s_h
         # print(w ,h ,s)
-        assert s >= w and s >= h
+        assert s_w >= w and s_h >= h # TODO s --> s_w, s_h
         top, left = (s_h - h) // 2, (s_w - w) // 2 # TODO s --> s_w, s_h
         bottom = s_h - h - top # TODO s --> s_w, s_h
         right = s_w - w - left # TODO s --> s_w, s_h
