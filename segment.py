@@ -744,7 +744,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    if not exists(args.checkpoint_dir):
+    if not exists(args.checkpoint_dir) and args.checkpoint_dir!='':
         os.makedirs(args.checkpoint_dir)
 
     if args.bn_sync:
