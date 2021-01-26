@@ -511,9 +511,9 @@ def test(eval_data_loader, model, num_classes,
                 save_colorful_images(pred, name, output_dir + '_color',
                                      CITYSCAPE_PALLETE, size)
         if has_gt:
-            confusion_matrix.update_matrix(label, final)
-            # label = label.numpy()
-            # hist += fast_hist(pred.flatten(), label.flatten(), num_classes)
+            # confusion_matrix.update_matrix(label, final)
+            label = label.numpy()
+            hist += fast_hist(pred.flatten(), label.flatten(), num_classes)
             # print('===> mAP {mAP:.3f}'.format(
             #     mAP=round(np.nanmean(per_class_iu(hist)) * 100, 2)))
         end = time.time()
@@ -522,12 +522,12 @@ def test(eval_data_loader, model, num_classes,
               'Data {data_time.val:.3f} ({data_time.avg:.3f})\t'
               .format(iter, len(eval_data_loader), batch_time=batch_time,
                       data_time=data_time))
-    # ious = per_class_iu(hist) * 100
-    miou, _, _ = confusion_matrix.compute_current_mean_intersection_over_union()
+    ious = per_class_iu(hist) * 100
+    # miou, _, _ = confusion_matrix.compute_current_mean_intersection_over_union()
     # print(' '.join('{:.03f}'.format(i) for i in ious))
     if has_gt:  # val
-        # return round(np.nanmean(ious), 2)
-        return miou
+        return round(np.nanmean(ious), 2)
+        # return miou
 
 
 def resize_4d_tensor(tensor, width, height):
