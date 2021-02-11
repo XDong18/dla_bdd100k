@@ -323,7 +323,7 @@ class DLA(nn.Module):
         # self.load_state_dict(torch.load('/shared/xudongliu/models/dla102_27a30eac.pth'))
 
         # self.load_state_dict(torch.load('/shared/xudongliu/models/dla34-24a49e58.pth'))
-        print('old baseline model-34 loaded!\n !!! \n !!! \n !!!')
+        # print('old baseline model-34 loaded!\n !!! \n !!! \n !!!')
         self.fc = fc
 
 
