@@ -625,7 +625,7 @@ def test_seg(args):
     scales = [0.5, 0.75, 1.25, 1.5]
     t = []
     if args.crop_size > 0:
-        t.append(transforms.PadToSize((1280, 736))) # TODO square padding --> (h, w) padding
+        t.append(transforms.PadToSize((1280, 736))) # TODO square padding--> (h, w) padding
     t.extend([transforms.ToTensor(), normalize])
     if args.ms:
         data = SegListMS(data_dir, phase, transforms.Compose(t), scales)
