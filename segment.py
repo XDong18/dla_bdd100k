@@ -85,7 +85,7 @@ class SegList(torch.utils.data.Dataset):
         if self.bbox_list is not None:
             data.append(Image.open(join(self.data_dir, self.bbox_list[index])))
         data = list(self.transforms(*data))
-        print(data)
+        # print(data)
         if self.out_name:
             if self.label_list is None:
                 # print(data[0].size())
