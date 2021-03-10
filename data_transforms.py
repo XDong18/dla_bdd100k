@@ -237,6 +237,7 @@ class Normalize(object):
         for t, m, s in zip(image, self.mean, self.std):
             t.sub_(m).div_(s)
         if label is None:
+            print('normalize', image)
             return image
         else:
             return image, label
@@ -395,6 +396,7 @@ class ToTensor(object):
             img = img.transpose(0, 1).transpose(0, 2).contiguous()
         img = img.float().div(255)
         if label is None:
+            print('ToTensor', (img,))
             return (img,)
         else:
             return img, torch.LongTensor(np.array(label, dtype=np.int))
