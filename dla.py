@@ -13,6 +13,7 @@ import dataset
 BatchNorm = nn.BatchNorm2d
 
 WEB_ROOT = 'http://dl.yf.io/dla/models'
+NEW_PRETRAINED_PATH = '/path_to_new_pretrained_dla_model'
 
 
 def get_model_url(data, name):
@@ -319,11 +320,8 @@ class DLA(nn.Module):
             raise ValueError(
                 '{} trained on {} does not exist.'.format(data.name, name))
         self.load_state_dict(model_zoo.load_url(model_url))
-        
-        # self.load_state_dict(torch.load('/shared/xudongliu/models/dla102_27a30eac.pth'))
-
-        # self.load_state_dict(torch.load('/shared/xudongliu/models/dla34-24a49e58.pth'))
-        # print('old baseline model-34 loaded!\n !!! \n !!! \n !!!')
+        # load new pretrained model
+        # self.load_state_dict(torch.load(NEW_PRETRAINED_PATH))
         self.fc = fc
 
 

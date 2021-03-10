@@ -523,11 +523,10 @@ def test(eval_data_loader, model, num_classes,
               .format(iter, len(eval_data_loader), batch_time=batch_time,
                       data_time=data_time))
     ious = per_class_iu(hist) * 100
-    # miou, _, _ = confusion_matrix.compute_current_mean_intersection_over_union()
-    # print(' '.join('{:.03f}'.format(i) for i in ious))
+
     if has_gt:  # val
         return round(np.nanmean(ious), 2)
-        # return miou
+        
 
 
 def resize_4d_tensor(tensor, width, height):
