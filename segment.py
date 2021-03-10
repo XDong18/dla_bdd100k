@@ -74,6 +74,7 @@ class SegList(torch.utils.data.Dataset):
 
     def __getitem__(self, index):
         image = Image.open(join(self.data_dir, self.image_list[index]))
+        print(.'111',image.size)
         data = [image]
         if self.label_list is not None:
             label_map = Image.open(join(self.data_dir, self.label_list[index]))
