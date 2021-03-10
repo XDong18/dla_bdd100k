@@ -670,7 +670,7 @@ def test_seg(args):
                       output_dir=out_dir,
                       scales=scales)
     else:
-        mAP = test(test_loader, model, args.classes, save_vis=False,  # TODO change save_vis to enable vis
+        mAP = test(test_loader, model, args.classes, save_vis=True,  # TODO change save_vis to enable vis
                    has_gt=phase != 'test' or args.with_gt, output_dir=out_dir)
     print('mIoU: ', mAP)
 
