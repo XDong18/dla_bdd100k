@@ -86,6 +86,7 @@ class SegList(torch.utils.data.Dataset):
         data = list(self.transforms(*data))
         if self.out_name:
             if self.label_list is None:
+                print(data[0].size())
                 data.append(data[0][0, :, :])
             data.append(self.image_list[index])
         if self.out_size:
